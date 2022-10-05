@@ -1,0 +1,49 @@
+Mutations:
+
+[+] Survivors
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 45
+    Result: Lived
+    Original line:
+                 require(_startTime >= maxPastTime && _startTime <= maxFutureTime,
+
+    Mutated line:
+                 require(_startTime >= maxPastTime && _startTime < maxFutureTime,
+
+    ACTION TAKEN: None. This require statment is to enforce a range. Changing the 
+                  `<=` to a `<` ensures the value is still within the range. The 
+                  possible change here would be to use the more restrictive operator
+                  and variable -> `maxFutureTimePlusOneSecond` but this has been
+                  avoided for simplicity.
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 138
+    Result: Lived
+    Original line:
+                 if (weeksComplete > scheduleLength) {
+
+    Mutated line:
+                 if (weeksComplete >= scheduleLength) {
+
+    ACTION TAKEN: None. The business logic of this conditional statment sets a variable to 0. In 
+                  circumstance of variable equality, the `multiplier` is set to zero (The 
+                  refundSchedule's last index, this is inforced by the refundSchedule setter
+                  function's requirments).
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 161
+    Result: Lived
+    Original line:
+                 if (currentTime < startTime) { 
+
+    Mutated line:
+                 if (currentTime <= startTime) { 
+
+    ACTION TAKEN: None. The business logic of this conditional statment sets a variable to 0. In 
+                  circumstance of variable equality, it is later set to zero as well (the two values
+                  are subtracted. The if statment is to protect against creating a nagitive number).
+
+[*] Done! 
+

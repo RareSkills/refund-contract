@@ -1,0 +1,99 @@
+[+] Report:
+Mutation testing report:
+Number of mutations:    214
+Killed:                 0 / 214
+
+Mutations:
+
+[+] Survivors
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 95
+    Result: Lived
+    Original line:
+             // kick student from the program. Refund them according to what they are owed
+
+    Mutated line:
+             // kick student fro != e program. Refund them according to what they are owed
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 95
+    Result: Lived
+    Original line:
+             // kick student from the program. Refund them according to what they are owed
+
+    Mutated line:
+             // kick student fro != e program. Refund them according to what they are owed
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 120
+    Result: Lived
+    Original line:
+         //------------------------------------UTILS------------------------------------\\
+
+    Mutated line:
+         //-------------------------------- / -UTILS------------------------------------\\
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 22
+    Result: Lived
+    Original line:
+                 uint64 balanceInDollars;      // Total to ensure each buyers refund is valid at all times
+
+    Mutated line:
+                 uint64 balanceInDollars;      // Tnd is valid at all times
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 25
+    Result: Lived
+    Original line:
+                 uint8[15] refundSchedule; // The refund schedule can change in the future, but it should stay with the agreed up on one
+
+    Mutated line:
+                 uint8[15] refundSchedule; // The refund schedul it should stay with the agreed up on one
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 27
+    Result: Lived
+    Original line:
+         //----------------------------------------------------------------------------\\
+
+    Mutated line:
+         //---------------------------------------------\\
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 38
+    Result: Lived
+    Original line:
+         //-----------------------------BUYER (student)--------------------------------\\
+
+    Mutated line:
+         //---------------------------------------------\\
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 74
+    Result: Lived
+    Original line:
+         //-----------------------------SELLER (admin)--------------------------------\\
+
+    Mutated line:
+         //-----------------------------SELLER (admin)-\\
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 160
+    Result: Lived
+    Original line:
+                 
+
+    Mutated line:
+             return weeksComplete;
+
+[*] Done! 
