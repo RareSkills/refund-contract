@@ -1,0 +1,102 @@
+[+] Report:
+Mutation testing report:
+Number of mutations:    52
+Killed:                 33 / 52
+
+Mutations:
+
+[+] Survivors
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 85
+    Result: Lived
+    Original line:
+                     require(idxValue < 101, "refund cannot exceed 100%");
+
+    Mutated line:
+                     require(idxValue <= 101, "refund cannot exceed 100%");
+
+    ACTION TAKEN: Change value in unit test 'An updated refundSchedule must never include a vlaue greater than 100'
+              from 200 to 101
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 129
+    Result: Lived
+    Original line:
+                 if (weeksComplete > scheduleLength) {
+
+    Mutated line:
+                 if (weeksComplete >= scheduleLength) {
+
+    ACTION TAKEN: No action taken
+             The next line of code is ` multipler = 0` 
+             Which is also true in the situation where weeksComplete is equal to the scheduleLength. This
+             is protected by the requirments of updating with a new refundSchedule.
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 130
+    Result: Lived
+    Original line:
+                     multiplier == 0;
+
+    Mutated line:
+                     multiplier != 0;
+
+    ACTION TAKEN: This is a bug in the code where multiplier should have been set to equal zero not check 
+                  equality. Line has been changed to `multipler = 0;`
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 152
+    Result: Lived
+    Original line:
+                 if (currentTime < startTime) { 
+
+    Mutated line:
+                 if (currentTime <= startTime) { 
+
+    ACTION TAKEN: No action taken. The less than check is to prevent a nagitive value from being produced. 
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 129
+    Result: Lived
+    Original line:
+                 if (weeksComplete > scheduleLength) {
+
+    Mutated line:
+                 if (weeksComplete <= scheduleLength) {
+
+    ACTION TAKENL: This mutation is alive because of a bug in the code caught by a previous mutation.
+                   Logic (within if statement) has been updated to resolve bug. This mutation should be
+                   killed in next test.
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 130
+    Result: Lived
+    Original line:
+                     multiplier == 0;
+
+    Mutated line:
+                     multiplier != 0;
+
+    ACTION TAKEN: See above, this should not be an equality check and has been updated. Should not be an
+                  issue in next test.
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 96
+    Result: Lived
+    Original line:
+                 depositedUSDC -= refundInDollars;
+
+    Mutated line:
+                 depositedUSDC += refundInDollars;
+
+    ACTION TAKEN: Hardened tests. Now covered.
+
+[*] Done! 
+

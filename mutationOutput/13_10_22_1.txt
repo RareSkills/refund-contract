@@ -1,0 +1,53 @@
+Mutations:
+
+[+] Survivors
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 68
+    Result: Lived
+    Original line:
+                     _startTime >= maxPastTime && _startTime <= maxFutureTime,
+
+    Mutated line:
+                     _startTime >= maxPastTime && _startTime < maxFutureTime,
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 210
+    Result: Lived
+    Original line:
+                 if (weeksComplete > scheduleLength) {
+
+    Mutated line:
+                 if (weeksComplete >= scheduleLength) {
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 244
+    Result: Lived
+    Original line:
+                 if (currentTime < startTime) {
+
+    Mutated line:
+                 if (currentTime <= startTime) {
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 272
+    Result: Lived
+    Original line:
+                 if (contractBalance > depositedUSDC * USDC_DECIMALS) {
+
+    Mutated line:
+                 if (contractBalance >= depositedUSDC * USDC_DECIMALS) {
+
+Mutation:
+    File: /home/mb/Documents/code/refund-contract/contracts/PaymentAndRefund.sol
+    Line nr: 272
+    Result: Lived
+    Original line:
+                 if (contractBalance > depositedUSDC * USDC_DECIMALS) {
+
+    Mutated line:
+                 if (contractBalance > depositedUSDC / USDC_DECIMALS) {
+
