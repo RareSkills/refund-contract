@@ -35,6 +35,19 @@ const FEB_SEVENTH = 1675731660;
 const APRIL_EIGHTEENTH = 1681779660;
 const JAN_2050 = 2524611660;
 
+/*
+*  calculatePreTestValues is a helper function used throughout to DRY up the test code
+*/
+
+async function calculatePreTestValues(paymentContract, tokenContract, userAddress, multiplier) {
+    const balanceBeforeRefund = await tokenContract.balanceOf(userAddress);
+    const expectedRefundInDollars = PRICE_IN_DOLLARS * multiplier;
+    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(userAddress);
+    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+
+    return { balanceBeforeRefund, expectedRefundInDollars, calculatedRefundInDollars, calculatedRefundSixDecimals };
+}
+
 describe("PaymentAndRefund", function () {
     async function deployFixture() {
         const [admin, user1, user2] = await ethers.getSigners();
@@ -116,10 +129,12 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     // No increase of time. Immidiate withdraw
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 1.00;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 1.00);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -140,11 +155,13 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     await time.increaseTo(JAN_TENTH); 
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 1.00;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
-
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 1.00);
+                        
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
                     await paymentContract.connect(user1).buyerClaimRefund();
@@ -164,10 +181,12 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     await time.increaseTo(FEB_SEVENTH); 
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 0.75;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 0.75);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -188,10 +207,12 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     await time.increaseTo(APRIL_EIGHTEENTH); 
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 0;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 0);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -258,10 +279,12 @@ describe("PaymentAndRefund", function () {
                     // No increase of time. Immidiate withdraw
                     // New refund schedule
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 1.00;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 1.00);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -285,10 +308,12 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     await time.increaseTo(JAN_TENTH); 
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 0.90;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 0.90);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -312,10 +337,12 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     await time.increaseTo(FEB_SEVENTH); 
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = PRICE_IN_DOLLARS * 0.50;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 0.50);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -339,10 +366,12 @@ describe("PaymentAndRefund", function () {
                         .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                     await time.increaseTo(APRIL_EIGHTEENTH); 
 
-                    const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                    const expectedRefundInDollars = 0;
-                    const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                    const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                    const { 
+                        balanceBeforeRefund, 
+                        expectedRefundInDollars,
+                        calculatedRefundInDollars,
+                        calculatedRefundSixDecimals 
+                    } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 0);
 
                     expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -600,10 +629,12 @@ describe("PaymentAndRefund", function () {
                     .payUpfront(PRICE_IN_DOLLARS, JAN_FIRST);
                 await time.increaseTo(JAN_2050); 
 
-                const balanceBeforeRefund = await usdcContract.balanceOf(user1.address);
-                const expectedRefundInDollars = 0;
-                const calculatedRefundInDollars = await paymentContract.calculateRefundDollars(user1.address);
-                const calculatedRefundSixDecimals = calculatedRefundInDollars * USDC_DECIMALS;
+                const { 
+                    balanceBeforeRefund, 
+                    expectedRefundInDollars,
+                    calculatedRefundInDollars,
+                    calculatedRefundSixDecimals 
+                } = await calculatePreTestValues(paymentContract, usdcContract, user1.address, 0);
 
                 expect(calculatedRefundInDollars).to.equal(expectedRefundInDollars);
 
@@ -756,4 +787,3 @@ describe("PaymentAndRefund", function () {
         });
     });
 });
-
