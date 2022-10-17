@@ -30,6 +30,7 @@ contract PaymentAndRefund {
 
     uint64 public priceInDollars;
     uint128 public depositedUSDC = 0;
+
     mapping(address => Deposit) public deposits;
     address public admin;
     uint256 public constant MAX_TIME_FROM_START = 30 days;
